@@ -33,4 +33,25 @@ python object_detection/model_main.py \
 ```
 ## Inference
 1. Turn trained model into frozen graph   
-2. 
+2. Convert model into TensorRT version for inference
+
+### *Convert model into TensorRT*
+1. Hardware: Jetson Nano
+2. Installation:
+> Setup Jetson Nano as required in [NVIDIA Site](https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit)
+> Build tensorflow 1.12.2 sited in [jkjung-avt.github](https://jkjung-avt.github.io/build-tensorflow-1.12.2/)
+```
+sudo pip3 uninstall -y tensorboard tensorflow
+cd <PROJECT_DIR>
+git clone https://github.com/jkjung-avt/jetson_nano.git
+cd jetson_nano
+./install_protobuf-3.6.1.sh
+./install_bazel-0.15.2.sh
+./install_tensorflow-1.12.2.sh
+```
+>> Note when building tensorflow on Jetson Nano: *error: not found line #define #define NV_TENSORRT_SONAME_MAJOR in /usr/include/aar.../Nvinfer.h* can be solve by placing the following lines in Nvinfer.h file.
+```
+#define 	NV_TENSORRT_SONAME_MAJOR   4 
+#define 	NV_TENSORRT_SONAME_MINOR   0
+#define 	NV_TENSORRT_SONAME_PATCH   1
+```
